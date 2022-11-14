@@ -11,10 +11,10 @@ const s3 = new XAWS.S3({
 
  // TODO: Implement the fileStogare logic
 
- export function getUploadUrl(imageId: string) {
+ export function getUploadUrl(todoId: string) {
         return s3.getSignedUrl('putObject', {
         Bucket: bucketname,
-        Key: imageId,
+        Key: todoId,
         Expires: 300
         })
     }

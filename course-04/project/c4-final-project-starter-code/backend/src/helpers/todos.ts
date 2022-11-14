@@ -9,6 +9,7 @@ import { APIGatewayProxyEvent } from 'aws-lambda'
 import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
 import { parseUserId } from '../auth/utils'
 import { TodoUpdate } from '../models/TodoUpdate'
+import { deleteTodoItem } from './todosAcess'
 // import * as createError from 'http-errors'
 
 
@@ -28,13 +29,15 @@ export function buildTodo(todoRequest: CreateTodoRequest, event: APIGatewayProxy
     return todo as TodoItem
 }
 
-export function updateTodo(updateTodoRequest: UpdateTodoRequest, todoId: string, jwtToken: string): Promise<TodoUpdate> {
+export async function updateTodo(updateTodoRequest: UpdateTodoRequest, todoId: string, jwtToken: string): Promise<TodoUpdate> {
     const userId = parseUserId(jwtToken);
     return updateTodo(updateTodoRequest, todoId, userId);
 }
 
-export function deleteTodo(todoId: string, jwtToken: string): Promise<string> {
-    const userId = parseUserId(jwtToken);
-    return deleteTodo(todoId, userId);
+// Delete todos function
+
+export async function deleteTodo(todoId: string, userId: string): Promise<string> {
+    
+    return deleteTodoItem(todoId, userId);
 }
 

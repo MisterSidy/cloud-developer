@@ -50,39 +50,40 @@ export async function getTodoById(todoId: string): Promise<TodoItem> {
     return null
 }
 export async function updateTodo(todo: TodoItem): Promise<TodoItem> {
-    console.log("updating.........")
-    const result = await docClient.update({
+    console.log('updating.........')
+    const data = await docClient
+      .update({
         TableName: todosTable,
         Key: {
-          userId: todo.userId,
-          todId: todo.todoId
+          todoId: todo.todoId,
+          userId: todo.userId
         },
         UpdateExpression: 'set attachmentUrl = :attachmentUrl',
         ExpressionAttributeValues: {
-            ':attachmentUrl': todo.attachmentUrl
+          ':attachmentUrl': todo.attachmentUrl
         },
         ReturnValues: 'UPDATED_NEW'
+      })
+      .promise()
+    console.log('updated after one')
+    return data.Attributes as TodoItem
+  }
 
-    }).promise()
-
-    return result.Attributes as TodoItem 
-}
-
-export async function deleteTodo(todoId: string, userId: string): Promise<string> {
+export async function deleteTodoItem(todoId: string, userId: string): Promise<string> {
     console.log("Deleting todo");
 
     const params = {
         TableName: todosTable,
         Key: {
-            "userId": userId,
-            "todoId": todoId
+            todoId,
+            userId
         },
     };
 
-    const result = await this.docClient.delete(params).promise();
+    const result = await docClient.delete(params).promise();
     console.log(result);
 
-    return "" as string;
+    return todoId as string;
 }
 
 function createDynamoDBClient() {
