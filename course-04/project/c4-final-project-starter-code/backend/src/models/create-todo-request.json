@@ -6,7 +6,6 @@
     "name": {
       "type": "string"
     }
-    
   },
   "required": ["name"],
   "additionalProperties": false
