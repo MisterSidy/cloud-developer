@@ -10,7 +10,6 @@ import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
 import { parseUserId } from '../auth/utils'
 import { TodoUpdate } from '../models/TodoUpdate'
 import { deleteTodoItem } from './todosAcess'
-// import * as createError from 'http-errors'
 
 
 // TODO: Implement businessLogic
@@ -34,7 +33,6 @@ export async function updateTodo(updateTodoRequest: UpdateTodoRequest, todoId: s
     return updateTodo(updateTodoRequest, todoId, userId);
 }
 
-// Delete todos function
 
 export async function deleteTodo(todoId: string, userId: string): Promise<string> {
     

@@ -1,4 +1,4 @@
-// import 'source-map-support/register'
+import 'source-map-support/register'
 
 import { getAllTodosByUserId } from "../../helpers/todosAcess";
 import { getUserId } from "../utils";
@@ -19,9 +19,6 @@ export const handler = middy(
         
         return {
         statusCode: 200,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
         body: JSON.stringify({
             items: todos
         })
